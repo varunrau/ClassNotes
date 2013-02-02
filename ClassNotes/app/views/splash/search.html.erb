@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= debug @lectures %>
 <%= debug @info %>
 <%= debug @meeting_times %>
@@ -31,3 +32,33 @@
 	  </thead>
 	</table>
 </div>
+=======
+<table class='table table-striped'>
+  <caption>Which class are you interested in?</caption>
+  <thead>
+    <tr>Course Title</tr>
+    <tr>Professor</tr>
+    <tr>Days of the Week</tr>
+    <tr>Course Times</tr>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td>
+            <%= course.title %>
+          </td>
+          <td>
+            <%= course.professor %>
+          </td>
+          <%# <td> %>
+          <%#   <%= course.gen_day_string %1> %>
+          <%# </td> %>
+          <td>
+            <%= course.time %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </thead>
+</table>
+
+>>>>>>> 0f73405eb91ec991309c42a9f0dcc25f58e97885

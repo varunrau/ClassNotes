@@ -25,7 +25,12 @@
           temp = class_name.split(" ")
           temp.map! { |word| (word =~ /\d/) ? word : word.capitalize }
           class_name = temp.join(" ")
+          if(curr_class == "")
+            class_names << class_name
+            curr_class = class_name
+          end
           day_string = classes_info[text][:time]
+
           day = [
               (day_string =~ /M/) ? true : false,
               (day_string =~ /Tu/) ? true : false,
@@ -33,11 +38,12 @@
               (day_string =~ /Th/) ? true : false,
               (day_string =~ /F/) ? true : false
           ]
+          day = (day_string =~ /MTWTF/) ? [true,true,true,true,true] : day
           prof_string = classes_info[text][:instructor]
           prof = prof_string
           time_string = classes_info[text][:time]
           time = time_string.split(" ").last
-          if(class_name != curr_class and curr_class != "")
+          if(class_name != curr_class)
             class_names << class_name
             curr_class = class_name
             class_days << days
@@ -326,17 +332,17 @@ def live_data(params)
 end
 
 maps = [
-  # {:days => "M", :semester => "SP"},
-  # {:days => "Tu", :semester => "SP"},
-  # {:days => "W", :semester => "SP"},
-  # {:days => "Th", :semester => "SP"},
-  # {:days => "F", :semester => "SP"},
-  # {:days => "MW", :semester => "SP"},
-  # {:days => "WF", :semester => "SP"},
-  {:days => "MF", :semester => "SP"}
-  # {:days => "TuTh", :semester => "SP"},
-  # {:days => "MWF", :semester => "SP"},
-  # {:days => "MTWTF", :semester => "SP"}
+  {:days => "M", :semester => "SP"},
+  {:days => "Tu", :semester => "SP"},
+  {:days => "W", :semester => "SP"},
+  {:days => "Th", :semester => "SP"},
+  {:days => "F", :semester => "SP"},
+  {:days => "MW", :semester => "SP"},
+  {:days => "WF", :semester => "SP"},
+  {:days => "MF", :semester => "SP"},
+  {:days => "TuTh", :semester => "SP"},
+  {:days => "MWF", :semester => "SP"},
+  {:days => "MTWTF", :semester => "SP"}
 ]
 
 maps.each { |map|
@@ -347,16 +353,25 @@ maps.each { |map|
     puts '--------------'
     puts @classes[index]
     puts '--------------'
+    lecture = Lecture.new
+    lecture.title = @classes[index]
     days = @days[index] # A boolean array of when the class is
     prof = @professors[index] # A string for the professor
     times = @times[index] # A string for when the class is held
     class_index = 0
     while (prof[class_index]) do
+      lecture.professor = prof[class_index]
+      lecture.mon = days[class_index][0]
+      lecture.tue = days[class_index][1]
+      lecture.wed = days[class_index][2]
+      lecture.thu = days[class_index][3]
+      lecture.fri = days[class_index][4]
+      lecture.time = times[class_index]
+      lecture.save
       puts prof[class_index]
       puts times[class_index]
       puts days[class_index]
       class_index += 1
     end
   end
-
 }
