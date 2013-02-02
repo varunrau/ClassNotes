@@ -2,32 +2,32 @@
 <%= debug @info %>
 <%= debug @meeting_times %>
 
-
-<table class='table table-striped'>
-  <caption>Which class are you interested in?</caption>
-  <thead>
-    <tr>Course Title</tr>
-    <tr>Professor</tr>
-    <tr>Days of the Week</tr>
-    <tr>Course Times</tr>
-    <tbody>
-      <% @classes.each do |course| %>
-        <tr>
-          <td>
-            <%= course.title %>
-          </td>
-          <td>
-            <%= course.professor %>
-          </td>
-          <td>
-            <%= course.gen_day_string %>
-          </td>
-          <td>
-            <%= course.times %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </thead>
-</table>
-
+<div class='table-wrapper'>
+	<table class='table table-striped'>
+	  <caption>Which class are you interested in?</caption>
+	  <thead>
+		<tr>Course Title</tr>
+		<tr>Professor</tr>
+		<tr>Days of the Week</tr>
+		<tr>Course Times</tr>
+		<tbody>
+		  <% @classes.each do |course| %>
+			<tr>
+			  <td>
+				<%= course.title %>
+			  </td>
+			  <td>
+				<%= course.professor %>
+			  </td>
+			  <td>
+				<%= course.gen_day_string %>
+			  </td>
+			  <td>
+				<%= course.times %>
+			  </td>
+			</tr>
+		  <% end %>
+		</tbody>
+	  </thead>
+	</table>
+</div>
