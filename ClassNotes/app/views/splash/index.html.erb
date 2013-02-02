@@ -1,4 +1,6 @@
-<%= form_tag search_path do %>
-  <%= text_field_tag :query, params[:query], :method => 'get', :class => 'input-medium search-query search-button' %>
-  <%= submit_tag 'Search', :class => 'btn', :id => 'search-button' %>
-<% end %>
+<div class='search'>
+  <%= form_tag search_path do %>
+    <%= text_field_tag :course, params[:course], :method => 'get', :class => 'input-medium search-query search-button' %>
+    <%= submit_tag 'Search', :class => 'btn', :id => 'search-button' %>
+  <% end %>
+</div>
