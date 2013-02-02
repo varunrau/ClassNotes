@@ -7,9 +7,6 @@ class SplashController < ApplicationController
     @lectures, @info, @url, @course, @semester = live_data(params)
     # This will return an array of booleans for class days for each lecture
     @classes, @days, @profs, @times = meetingTimesForLectures(@lectures, @info)
-
-
-
   end
 
 end
