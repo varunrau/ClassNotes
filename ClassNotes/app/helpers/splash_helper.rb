@@ -8,24 +8,27 @@ module SplashHelper
     class_times = []
     times = []
     curr_class = ""
-    classes.each do |text|
-      if(text =~ / P /)
-        class_name = text.gsub!(/ [PS] .+/, "")
-        time_string = classes_info[text][:time]
-        time = [
-            (time_string =~ /M/) ? true : false,
-            (time_string =~ /Tu/) ? true : false,
-            (time_string =~ /W/) ? true : false,
-            (time_string =~ /Th/) ? true : false,
-            (time_string =~ /F/) ? true : false
-        ]
-        if(class_name != curr_class)
-          class_names = [class_names,class_name]
-          curr_class = class_name
-          class_times = [class_times,times]
-          times = []
+    classes.each do |lec|
+      lec.each do |text|
+        text.clone
+        if(text =~ / P /)
+          class_name = (text.clone).gsub!(/ [PS] .+/, "")
+          time_string = classes_info[text][:time]
+          time = [
+              (time_string =~ /M/) ? true : false,
+              (time_string =~ /Tu/) ? true : false,
+              (time_string =~ /W/) ? true : false,
+              (time_string =~ /Th/) ? true : false,
+              (time_string =~ /F/) ? true : false
+          ]
+          if(class_name != curr_class)
+            class_names = [class_names,class_name]
+            curr_class = class_name
+            class_times = [class_times,times]
+            times = []
+          end
+          times = [times,time]
         end
-        times = [times,time]
       end
     end
     class_times = [class_times,times]
