@@ -4,6 +4,7 @@ module SplashHelper
   # @param classes_info - the info for those classes (in a hashmap)
   # return an array (0 -> 4) of booleans if the class meets on that day for each class
   def meetingTimesForLectures(classes, classes_info)
+    puts classes_info[classes[0]][:time]
   end
 
   # build search url from search parameters
