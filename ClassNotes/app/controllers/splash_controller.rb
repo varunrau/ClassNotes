@@ -1,7 +1,26 @@
 class SplashController < ApplicationController
   helper_method :gen_day_string
 
+  require 'rubygems'
+  require 'google/api_client'
+
+  ## Email of the Service Account #
+  SERVICE_ACCOUNT_EMAIL = '354973612555@developer.gserviceaccount.com'
+
+  ## Path to the Service Account's Private Key file #
+  SERVICE_ACCOUNT_PKCS12_FILE_PATH = '/app/assets/privatekey/a34ffacc5aead4cb09dc5db89b79087a770bed18-privatekey.p12'
+
+
+
+
   def index
+    print "hello"
+    key = Google::APIClient::PKCS12.load_key(SERVICE_ACCOUNT_PKCS12_FILE_PATH, 'notasecret')
+    asserter = Google::APIClient::JWTAsserter.new(SERVICE_ACCOUNT_EMAIL,
+        'https://www.googleapis.com/auth/drive', key)
+    client = Google::APIClient.new
+    client.authorization = asserter.authorize()
+    client
   end
 
   def search
