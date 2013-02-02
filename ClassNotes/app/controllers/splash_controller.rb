@@ -14,12 +14,13 @@ class SplashController < ApplicationController
     client = Google::APIClient.new
     client.authorization = asserter.authorize()
     drive = client.discovered_api('drive', 'v2')
+    puts 'hello'
     file = drive.files.insert.request_schema.new({
       'title' => 'My document',
       'description' => 'A test document',
       'mimeType' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     })
-
+    puts 'world'
     media = Google::APIClient::UploadIO.new(Rails.root.to_s + '/app/assets/documents/document.doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     result = client.execute(
       :api_method => drive.files.insert,
