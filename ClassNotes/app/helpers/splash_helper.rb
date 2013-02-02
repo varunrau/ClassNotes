@@ -24,6 +24,7 @@ module SplashHelper
             curr_class = class_name
           end
           day_string = classes_info[text][:time]
+
           day = [
               (day_string =~ /M/) ? true : false,
               (day_string =~ /Tu/) ? true : false,
@@ -31,6 +32,7 @@ module SplashHelper
               (day_string =~ /Th/) ? true : false,
               (day_string =~ /F/) ? true : false
           ]
+          day = (day_string =~ /MTWTF/) ? [true,true,true,true,true] : day
           prof_string = classes_info[text][:instructor]
           prof = prof_string
           time_string = classes_info[text][:time]
