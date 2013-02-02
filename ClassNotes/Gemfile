@@ -9,6 +9,8 @@ gem 'nokogiri'
 gem 'thread'
 gem 'bcrypt-ruby', '3.0.1'
 
+gem 'google-api-client'
+
 gem 'sqlite3'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

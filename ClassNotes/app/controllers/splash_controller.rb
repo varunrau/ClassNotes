@@ -1,26 +1,40 @@
 class SplashController < ApplicationController
   helper_method :gen_day_string
-
-  require 'rubygems'
   require 'google/api_client'
-
   ## Email of the Service Account #
   SERVICE_ACCOUNT_EMAIL = '354973612555@developer.gserviceaccount.com'
 
   ## Path to the Service Account's Private Key file #
   SERVICE_ACCOUNT_PKCS12_FILE_PATH = '/app/assets/privatekey/a34ffacc5aead4cb09dc5db89b79087a770bed18-privatekey.p12'
 
-
-
-
   def index
-    print "hello"
     key = Google::APIClient::PKCS12.load_key(SERVICE_ACCOUNT_PKCS12_FILE_PATH, 'notasecret')
     asserter = Google::APIClient::JWTAsserter.new(SERVICE_ACCOUNT_EMAIL,
         'https://www.googleapis.com/auth/drive', key)
     client = Google::APIClient.new
     client.authorization = asserter.authorize()
-    client
+    puts 'hello'
+    file = drive.files.insert.request_schema.new({
+      'title' => 'My document',
+      'description' => 'A test document',
+      'mimeType' => 'text/plain'
+    })
+    puts 'world'
+    media = Google::APIClient::UploadIO.new('documents.txt', 'text/plain')
+    result = client.execute(
+      :api_method => drive.file.insert,
+      :body_object => file,
+      :media => media,
+      :parameters => {
+      'uploadType' => 'multipart',
+      'alt' => 'json'}
+    )
+
+    puts '==========='
+    puts result
+    puts '==========='
+    jj result.data.to_hash
+
   end
 
   def search
