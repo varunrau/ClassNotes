@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202080830) do
+ActiveRecord::Schema.define(:version => 20130202121422) do
 
   create_table "courses", :force => true do |t|
     t.string   "title"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20130202080830) do
     t.boolean  "fri"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "professor"
+    t.string   "time"
   end
 
 end
