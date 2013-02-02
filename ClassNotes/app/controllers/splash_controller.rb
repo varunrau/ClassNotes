@@ -9,12 +9,7 @@ class SplashController < ApplicationController
     @classes, @days, @profs, @times = meetingTimesForLectures(@lectures, @info)
 
     if @classes.length == 1
-      redirect_to document
+      redirect_to document_path
     end
   end
-
-  def document
-
-  end
-
 end
