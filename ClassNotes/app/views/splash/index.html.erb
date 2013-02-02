@@ -1,6 +1,9 @@
 <div class='search'>
-  <%= form_tag search_path do %>
-    <%= text_field_tag :course, params[:course], :method => 'get', :class => 'input-medium search-query search-button' %>
-    <%= submit_tag 'Search', :class => 'btn', :id => 'search-button' %>
-  <% end %>
+  <div>
+    <%= form_tag search_path do %>
+      <%= text_field_tag :course, params[:course], :method => 'get', :class => 'input-medium search-query search-button' %>
+  <%= select_tag :semester, [['Hot','hot'],['Medium','medium'],['Cold','cold']] %>
+    <% end %>
+  </div>
+      <%= submit_tag 'Search', :class => 'btn', :id => 'search-button' %>
 </div>
