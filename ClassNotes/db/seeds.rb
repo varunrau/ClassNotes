@@ -305,7 +305,6 @@ maps = [
 
 maps.each { |map|
   @lectures, @info, @url, @course, @semester = live_data(map)
-  @meeting_times = meetingTimesForLectures(@lectures, @info)
-
+  @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
 
 }
