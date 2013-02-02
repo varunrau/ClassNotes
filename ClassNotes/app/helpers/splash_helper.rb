@@ -12,7 +12,8 @@ module SplashHelper
     class_times = []
     times = []
     curr_class = ""
-    getLeaves(classes).each do |text|
+    leaves = getLeaves(classes)
+    leaves.each do |text|
         if(text =~ / P /)
           class_name = (text.clone).gsub!(/ [PS] .+/, "")
           temp = class_name.split(" ")
@@ -31,24 +32,24 @@ module SplashHelper
           time_string = classes_info[text][:time]
           time = time_string.split(" ").last
           if(class_name != curr_class)
-            class_names = [class_names,class_name]
+            class_names << class_name
             curr_class = class_name
-            class_days = [class_days,days]
+            class_days << days
             days = []
-            class_profs = [class_profs,profs]
+            class_profs << profs
             profs = []
-            class_times = [class_times,times]
+            class_times << times
             times = []
 
           end
-          days = [days,day]
-          profs = [profs,prof]
-          times = [times,time]
+          days << day
+          profs << prof
+          times << time
       end
     end
-    class_days = [class_days,days]
-    class_profs = [class_profs,profs]
-    class_times = [class_times,times]
+    class_days << days
+    class_profs << profs
+    class_times << times
     return [class_names,class_days,class_profs,class_times]
   end
 
@@ -56,8 +57,14 @@ module SplashHelper
     leaves = []
     if(tree.kind_of?(Array))
       tree.each do |subtree|
-        leaves = [leaves, getLeaves(subtree)]
+        children = getLeaves(subtree)
+        if(children.kind_of?(Array))
+          leaves.concat(children)
+        else
+          leaves << children
+        end
       end
+      return leaves
     else
       return tree
     end
