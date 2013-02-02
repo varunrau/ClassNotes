@@ -1,8 +1,3 @@
-<%= debug @lectures %>
-<%= debug @info %>
-<%= debug @meeting_times %>
-
-
 <table class='table table-striped'>
   <caption>Which class are you interested in?</caption>
   <thead>
@@ -11,7 +6,7 @@
     <tr>Days of the Week</tr>
     <tr>Course Times</tr>
     <tbody>
-      <% @classes.each do |course| %>
+      <% @courses.each do |course| %>
         <tr>
           <td>
             <%= course.title %>
@@ -23,7 +18,7 @@
             <%= course.gen_day_string %>
           </td>
           <td>
-            <%= course.times %>
+            <%= course.time %>
           </td>
         </tr>
       <% end %>
