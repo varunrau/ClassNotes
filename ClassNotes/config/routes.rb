@@ -1,4 +1,4 @@
 ClassNotes::Application.routes.draw do
-  resources :spash
+  post "search" => "spash#search", :as => "search"
   root :to => 'splash#index'
 end
