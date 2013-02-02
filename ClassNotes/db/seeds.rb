@@ -26,6 +26,7 @@
           temp.map! { |word| (word =~ /\d/) ? word : word.capitalize }
           class_name = temp.join(" ")
           if(curr_class == "")
+            class_names << class_name
             curr_class = class_name
           end
           day_string = classes_info[text][:time]
@@ -329,17 +330,17 @@ def live_data(params)
 end
 
 maps = [
-  # {:days => "M", :semester => "SP"},
-  # {:days => "Tu", :semester => "SP"},
-  # {:days => "W", :semester => "SP"},
-  # {:days => "Th", :semester => "SP"},
-  # {:days => "F", :semester => "SP"},
-  # {:days => "MW", :semester => "SP"},
-  # {:days => "WF", :semester => "SP"},
-  {:days => "MF", :semester => "SP"}
-  # {:days => "TuTh", :semester => "SP"},
-  # {:days => "MWF", :semester => "SP"},
-  # {:days => "MTWTF", :semester => "SP"}
+  {:days => "M", :semester => "SP"},
+  {:days => "Tu", :semester => "SP"},
+  {:days => "W", :semester => "SP"},
+  {:days => "Th", :semester => "SP"},
+  {:days => "F", :semester => "SP"},
+  {:days => "MW", :semester => "SP"},
+  {:days => "WF", :semester => "SP"},
+  {:days => "MF", :semester => "SP"},
+  {:days => "TuTh", :semester => "SP"},
+  {:days => "MWF", :semester => "SP"},
+  {:days => "MTWTF", :semester => "SP"}
 ]
 
 maps.each { |map|
@@ -361,5 +362,4 @@ maps.each { |map|
       class_index += 1
     end
   end
-
 }
