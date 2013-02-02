@@ -11,35 +11,58 @@
 
 def meetingTimesForLectures(classes, classes_info)
   class_names = []
+  class_days = []
+  days = []
+  class_profs = []
+  profs = []
   class_times = []
   times = []
   curr_class = ""
-  classes.each do |lec|
-    lec.each do |text|
-      text.clone
-      if(text =~ / P /)
-        class_name = (text.clone).gsub!(/ [PS] .+/, "")
-        time_string = classes_info[text][:time]
-        time = [
-          (time_string =~ /M/) ? true : false,
-          (time_string =~ /Tu/) ? true : false,
-          (time_string =~ /W/) ? true : false,
-          (time_string =~ /Th/) ? true : false,
-          (time_string =~ /F/) ? true : false
-        ]
-        if(class_name != curr_class)
-          class_names = [class_names,class_name]
-          curr_class = class_name
-          class_times = [class_times,times]
-          times = []
+  classes.each do |l1|
+    l1.each do |l2|
+      l2.each do |text|
+        text.clone
+        if(text =~ / P /)
+          class_name = (text.clone).gsub!(/ [PS] .+/, "")
+          temp = class_name.split(" ")
+          temp.map! { |word| (word =~ /\d/) ? word : word.capitalize }
+          class_name = temp.join(" ")
+          day_string = classes_info[text][:time]
+          day = [
+            (day_string =~ /M/) ? true : false,
+            (day_string =~ /Tu/) ? true : false,
+            (day_string =~ /W/) ? true : false,
+            (day_string =~ /Th/) ? true : false,
+            (day_string =~ /F/) ? true : false
+          ]
+          prof_string = classes_info[text][:instructor]
+          prof = prof_string
+          time_string = classes_info[text][:time]
+          time = time_string.split(" ").last
+          if(class_name != curr_class)
+            class_names = [class_names,class_name]
+            curr_class = class_name
+            class_days = [class_days,days]
+            days = []
+            class_profs = [class_profs,profs]
+            profs = []
+            class_times = [class_times,times]
+            times = []
+          end
+          days = [days,day]
+          profs = [profs,prof]
+          times = [times,time]
         end
-        times = [times,time]
       end
     end
   end
+  class_days = [class_days,days]
+  class_profs = [class_profs,profs]
   class_times = [class_times,times]
-  return [class_names,class_times]
+  return [class_names,class_days,class_profs,class_times]
 end
+
+
 def build_url(params)
   course = params[:course]
 
@@ -296,8 +319,8 @@ maps = [
   # {:days => "Th", :semester => "SP"},
   # {:days => "F", :semester => "SP"},
   # {:days => "MW", :semester => "SP"},
-  {:days => "WF", :semester => "SP"}
-  # {:days => "MF", :semester => "SP"},
+  # {:days => "WF", :semester => "SP"},
+  {:days => "MF", :semester => "SP"}
   # {:days => "TuTh", :semester => "SP"},
   # {:days => "MWF", :semester => "SP"},
   # {:days => "MTWTF", :semester => "SP"}
@@ -308,14 +331,19 @@ maps.each { |map|
   @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
 
   @classes.length.times do |index|
+    puts '--------------'
+    puts @classes[index].kind_of?(Array)
+    puts @classes[index]
+    puts '--------------'
     days = @days[index] # A boolean array of when the class is
     prof = @professors[index] # A string for the professor
     times = @times[index] # A string for when the class is held
-    class_index
+    class_index = 0
     while (prof[class_index]) do
       puts prof[class_index]
       puts times[class_index]
       puts days[class_index]
+      class_index += 1
     end
   end
 
