@@ -31,7 +31,7 @@ module SplashHelper
           prof = prof_string
           time_string = classes_info[text][:time]
           time = time_string.split(" ").last
-          if(class_name != curr_class)
+          if(class_name != curr_class and curr_class != "")
             class_names << class_name
             curr_class = class_name
             class_days << days
@@ -40,7 +40,6 @@ module SplashHelper
             profs = []
             class_times << times
             times = []
-
           end
           days << day
           profs << prof
