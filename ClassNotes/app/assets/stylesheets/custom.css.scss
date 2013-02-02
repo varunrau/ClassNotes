@@ -8,7 +8,18 @@ html {
 
 body {
   padding-top: 60px;
-  background-color:#4099FF;
+  //background-color:#4099FF;
+   color: #111;
+ background-color: #003366;
+ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.85, #3B5998),
+  color-stop(1.10, #003366));
+ background-image: -moz-linear-gradient(#fff 0%, #3E9C9D 100%);
+ background-repeat:repeat-x;
+ background-size: 100% 600px;
+ -o-background-size: 100% 600px;
+ -moz-background-size: 100% 600px;
+ -webkit-background-size: 100% 600px;
+  //background-image: -webkit-radial-gradient(center bottom, circle farthest-side, #4099FF 0%, #00ff00 100%);
 }
 
 section {
