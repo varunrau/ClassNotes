@@ -12,6 +12,7 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'sqlite3'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'bootstrap-sass', '2.1'
 gem 'less-rails'
 gem 'therubyracer'
 
