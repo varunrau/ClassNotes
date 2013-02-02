@@ -2,7 +2,7 @@
   <div>
     <%= form_tag search_path do %>
       <%= text_field_tag :course, params[:course], :method => 'get', :class => 'input-medium search-query search-button' %>
-  <%= select_tag :semester, [['Hot','hot'],['Medium','medium'],['Cold','cold']] %>
+      <%= select_tag :semester, "<option>SP</option>".html_safe, :class => 'semester-box' %>
     <% end %>
   </div>
       <%= submit_tag 'Search', :class => 'btn', :id => 'search-button' %>
