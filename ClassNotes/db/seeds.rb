@@ -9,19 +9,16 @@
 # build search url from search parameters
 
 
-def meetingTimesForLectures(classes, classes_info)
-  class_names = []
-  class_days = []
-  days = []
-  class_profs = []
-  profs = []
-  class_times = []
-  times = []
-  curr_class = ""
-  classes.each do |l1|
-    l1.each do |l2|
-      l2.each do |text|
-        text.clone
+  def meetingTimesForLectures(classes, classes_info)
+    class_names = []
+    class_days = []
+    days = []
+    class_profs = []
+    profs = []
+    class_times = []
+    times = []
+    curr_class = ""
+    getLeaves(classes).each do |text|
         if(text =~ / P /)
           class_name = (text.clone).gsub!(/ [PS] .+/, "")
           temp = class_name.split(" ")
@@ -29,11 +26,11 @@ def meetingTimesForLectures(classes, classes_info)
           class_name = temp.join(" ")
           day_string = classes_info[text][:time]
           day = [
-            (day_string =~ /M/) ? true : false,
-            (day_string =~ /Tu/) ? true : false,
-            (day_string =~ /W/) ? true : false,
-            (day_string =~ /Th/) ? true : false,
-            (day_string =~ /F/) ? true : false
+              (day_string =~ /M/) ? true : false,
+              (day_string =~ /Tu/) ? true : false,
+              (day_string =~ /W/) ? true : false,
+              (day_string =~ /Th/) ? true : false,
+              (day_string =~ /F/) ? true : false
           ]
           prof_string = classes_info[text][:instructor]
           prof = prof_string
@@ -48,19 +45,30 @@ def meetingTimesForLectures(classes, classes_info)
             profs = []
             class_times = [class_times,times]
             times = []
+
           end
           days = [days,day]
           profs = [profs,prof]
           times = [times,time]
-        end
       end
     end
+    class_days = [class_days,days]
+    class_profs = [class_profs,profs]
+    class_times = [class_times,times]
+    return [class_names,class_days,class_profs,class_times]
   end
-  class_days = [class_days,days]
-  class_profs = [class_profs,profs]
-  class_times = [class_times,times]
-  return [class_names,class_days,class_profs,class_times]
-end
+
+
+  def getLeaves(tree)
+    leaves = []
+    if(tree.kind_of?(Array))
+      tree.each do |subtree|
+        leaves = [leaves, getLeaves(subtree)]
+      end
+    else
+      return tree
+    end
+  end
 
 
 def build_url(params)
@@ -329,6 +337,10 @@ maps = [
 maps.each { |map|
   @lectures, @info, @url, @course, @semester = live_data(map)
   @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
+
+  puts 'hello world'
+  puts @classes
+  puts 'hi'
 
   @classes.length.times do |index|
     puts '--------------'
