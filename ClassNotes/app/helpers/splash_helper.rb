@@ -19,7 +19,12 @@ module SplashHelper
           temp = class_name.split(" ")
           temp.map! { |word| (word =~ /\d/) ? word : word.capitalize }
           class_name = temp.join(" ")
+          if(curr_class == "")
+            class_names << class_name
+            curr_class = class_name
+          end
           day_string = classes_info[text][:time]
+
           day = [
               (day_string =~ /M/) ? true : false,
               (day_string =~ /Tu/) ? true : false,
@@ -27,11 +32,12 @@ module SplashHelper
               (day_string =~ /Th/) ? true : false,
               (day_string =~ /F/) ? true : false
           ]
+          day = (day_string =~ /MTWTF/) ? [true,true,true,true,true] : day
           prof_string = classes_info[text][:instructor]
           prof = prof_string
           time_string = classes_info[text][:time]
           time = time_string.split(" ").last
-          if(class_name != curr_class and curr_class != "")
+          if(class_name != curr_class)
             class_names << class_name
             curr_class = class_name
             class_days << days
