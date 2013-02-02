@@ -20,6 +20,7 @@ module SplashHelper
           temp.map! { |word| (word =~ /\d/) ? word : word.capitalize }
           class_name = temp.join(" ")
           if(curr_class == "")
+            class_names << class_name
             curr_class = class_name
           end
           day_string = classes_info[text][:time]
