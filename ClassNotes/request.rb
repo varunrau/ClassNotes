@@ -1,5 +1,4 @@
 
-
 # build search url from search parameters
 def build_url(params)
   course = params[:course]
@@ -250,8 +249,21 @@ def live_data(params)
   return lectures, info, url, course, params[:semester]
 end
 
-map = {:days => "M", :semester => "SP"}
+maps = [
+  {:days => "M", :semester => "SP"},
+  {:days => "Tu", :semester => "SP"},
+  {:days => "W", :semester => "SP"},
+  {:days => "Th", :semester => "SP"},
+  {:days => "F", :semester => "SP"},
+  {:days => "MW", :semester => "SP"},
+  {:days => "WF", :semester => "SP"},
+  {:days => "MF", :semester => "SP"},
+  {:days => "TuTh", :semester => "SP"},
+  {:days => "MWF", :semester => "SP"},
+  {:days => "MTWTF", :semester => "SP"}
+]
 
-@lectures, @info, @url, @course, @semester = live_data(map)
-
-puts @lectures
+maps.each { |map|
+  @lectures, @info, @url, @course, @semester = live_data(map)
+  puts @lectures
+}

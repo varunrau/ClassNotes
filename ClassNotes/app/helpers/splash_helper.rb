@@ -9,8 +9,9 @@ module SplashHelper
     times = []
     curr_class = ""
     classes.each do |text|
-      if(text =~ / P /)
-        class_name = text.gsub!(/ [PS] .+/, "")
+      if text =~ / P /
+        text1 = text.clone
+        class_name = text1.gsub!(/ [PS] .+/, "")
         time_string = classes_info[text][:time]
         time = [
             (time_string =~ /M/) ? true : false,
@@ -29,6 +30,8 @@ module SplashHelper
       end
     end
     class_times = [class_times,times]
+    puts class_times
+    puts class_names
     return [class_names,class_times]
   end
 
