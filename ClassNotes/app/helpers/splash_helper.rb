@@ -4,7 +4,32 @@ module SplashHelper
   # @param classes_info - the info for those classes (in a hashmap)
   # return an array (0 -> 4) of booleans if the class meets on that day for each class
   def meetingTimesForLectures(classes, classes_info)
-    puts classes_info[classes[0]][:time]
+    class_names = []
+    class_times = []
+    times = []
+    curr_class = ""
+    classes.each do |text|
+      if(text =~ / P /)
+        class_name = text.gsub!(/ [PS] .+/, "")
+        time_string = classes_info[text][:time]
+        time = [
+            (time_string =~ /M/) ? true : false,
+            (time_string =~ /Tu/) ? true : false,
+            (time_string =~ /W/) ? true : false,
+            (time_string =~ /Th/) ? true : false,
+            (time_string =~ /F/) ? true : false
+        ]
+        if(class_name != curr_class)
+          class_names = [class_names,class_name]
+          curr_class = class_name
+          class_times = [class_times,times]
+          times = []
+        end
+        times = [times,time]
+      end
+    end
+    class_times = [class_times,times]
+    return [class_names,class_times]
   end
 
   # build search url from search parameters
