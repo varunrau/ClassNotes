@@ -5,7 +5,7 @@ class SplashController < ApplicationController
   SERVICE_ACCOUNT_EMAIL = '354973612555@developer.gserviceaccount.com'
 
   ## Path to the Service Account's Private Key file #
-  SERVICE_ACCOUNT_PKCS12_FILE_PATH = '/app/assets/privatekey/a34ffacc5aead4cb09dc5db89b79087a770bed18-privatekey.p12'
+  SERVICE_ACCOUNT_PKCS12_FILE_PATH = Rails.root.to_s + '/app/assets/privatekey/a34ffacc5aead4cb09dc5db89b79087a770bed18-privatekey.p12'
 
   def index
     key = Google::APIClient::PKCS12.load_key(SERVICE_ACCOUNT_PKCS12_FILE_PATH, 'notasecret')
@@ -13,16 +13,16 @@ class SplashController < ApplicationController
         'https://www.googleapis.com/auth/drive', key)
     client = Google::APIClient.new
     client.authorization = asserter.authorize()
-    puts 'hello'
+    drive = client.discovered_api('drive', 'v2')
     file = drive.files.insert.request_schema.new({
       'title' => 'My document',
       'description' => 'A test document',
-      'mimeType' => 'text/plain'
+      'mimeType' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     })
-    puts 'world'
-    media = Google::APIClient::UploadIO.new('documents.txt', 'text/plain')
+
+    media = Google::APIClient::UploadIO.new(Rails.root.to_s + '/app/assets/documents/document.doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     result = client.execute(
-      :api_method => drive.file.insert,
+      :api_method => drive.files.insert,
       :body_object => file,
       :media => media,
       :parameters => {
