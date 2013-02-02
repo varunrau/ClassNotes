@@ -290,21 +290,33 @@ def live_data(params)
 end
 
 maps = [
-  {:days => "M", :semester => "SP"},
-  {:days => "Tu", :semester => "SP"},
-  {:days => "W", :semester => "SP"},
-  {:days => "Th", :semester => "SP"},
-  {:days => "F", :semester => "SP"},
-  {:days => "MW", :semester => "SP"},
-  {:days => "WF", :semester => "SP"},
-  {:days => "MF", :semester => "SP"},
-  {:days => "TuTh", :semester => "SP"},
-  {:days => "MWF", :semester => "SP"},
-  {:days => "MTWTF", :semester => "SP"}
+  # {:days => "M", :semester => "SP"},
+  # {:days => "Tu", :semester => "SP"},
+  # {:days => "W", :semester => "SP"},
+  # {:days => "Th", :semester => "SP"},
+  # {:days => "F", :semester => "SP"},
+  # {:days => "MW", :semester => "SP"},
+  {:days => "WF", :semester => "SP"}
+  # {:days => "MF", :semester => "SP"},
+  # {:days => "TuTh", :semester => "SP"},
+  # {:days => "MWF", :semester => "SP"},
+  # {:days => "MTWTF", :semester => "SP"}
 ]
 
 maps.each { |map|
   @lectures, @info, @url, @course, @semester = live_data(map)
   @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
+
+  @classes.length.times do |index|
+    days = @days[index] # A boolean array of when the class is
+    prof = @professors[index] # A string for the professor
+    times = @times[index] # A string for when the class is held
+    class_index
+    while (prof[class_index]) do
+      puts prof[class_index]
+      puts times[class_index]
+      puts days[class_index]
+    end
+  end
 
 }
