@@ -332,4 +332,23 @@ module SplashHelper
     return lectures, info, url, course, params[:semester]
   end
 
+  def gen_day_string(course)
+    string = ""
+    if course.mon
+      string = string + "M"
+    end
+    if course.tue
+      string = string + "Tu"
+    end
+    if course.wed
+      string = string + "W"
+    end
+    if course.thu
+      string = string + "Th"
+    end
+    if course.fri
+      string = string + "F"
+    end
+  end
+
 end
