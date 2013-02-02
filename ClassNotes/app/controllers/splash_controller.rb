@@ -13,4 +13,8 @@ class SplashController < ApplicationController
     end
   end
 
+  def document
+
+  end
+
 end
