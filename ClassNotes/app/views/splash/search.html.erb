@@ -6,22 +6,22 @@
       <tr>Professor</tr>
       <tr>Days of the Week</tr>
       <tr>Course Times</tr>
-      <tbody>
-        <% @courses.each do |course| %>
-          <tr>
-            <td>
-              <%= course.title %>
-            </td>
-            <td>
-              <%= course.professor %>
-            </td>
-            <td>
-              <%= course.time %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
     </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td>
+            <%= course.title %>
+          </td>
+          <td>
+            <%= course.professor %>
+          </td>
+          <td>
+            <%= course.time %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
 
