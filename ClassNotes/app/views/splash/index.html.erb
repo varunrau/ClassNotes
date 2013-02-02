@@ -1,7 +1,7 @@
 <div class='search'>
   <div>
     <%= form_tag search_path do %>
-      <%= text_field_tag :course, params[:course], :method => 'get', :class => 'input-medium search-query search-button' %>
+      <%= text_field_tag :course, params[:course], :placeholder => "e.g. Math 16A", :method => 'get', :class => 'input-medium search-query search-button' %>
       <%= select_tag :semester, "<option value='SP'>Spring</option>".html_safe, :class => 'semester-box' %>
     <% end %>
   </div>
