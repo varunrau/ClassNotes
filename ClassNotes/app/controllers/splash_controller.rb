@@ -1,44 +1,27 @@
 class SplashController < ApplicationController
   helper_method :gen_day_string
-  require 'google/api_client'
-  ## Email of the Service Account #
-  SERVICE_ACCOUNT_EMAIL = '354973612555@developer.gserviceaccount.com'
-
-  ## Path to the Service Account's Private Key file #
-  SERVICE_ACCOUNT_PKCS12_FILE_PATH = Rails.root.to_s + '/app/assets/privatekey/a34ffacc5aead4cb09dc5db89b79087a770bed18-privatekey.p12'
 
   def index
-    key = Google::APIClient::PKCS12.load_key(SERVICE_ACCOUNT_PKCS12_FILE_PATH, 'notasecret')
-    asserter = Google::APIClient::JWTAsserter.new(SERVICE_ACCOUNT_EMAIL,
-        'https://www.googleapis.com/auth/drive', key)
-    client = Google::APIClient.new
-    client.authorization = asserter.authorize()
-    drive = client.discovered_api('drive', 'v2')
-    puts 'hello'
-    file = drive.files.insert.request_schema.new({
-      'title' => 'My document',
-      'description' => 'A test document',
-      'mimeType' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    })
-    puts 'world'
-    media = Google::APIClient::UploadIO.new(Rails.root.to_s + '/app/assets/documents/document.doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-    result = client.execute(
-      :api_method => drive.files.insert,
-      :body_object => file,
-      :media => media,
-      :parameters => {
-      'uploadType' => 'multipart',
-      'alt' => 'json'}
-    )
-
-    puts '==========='
-    puts result
-    puts '==========='
-    jj result.data.to_hash
-
+    # Login in to the master account
+    drive = GoogleDrive.login("berkeleyclassnotes@gmail.com", "calnotes")
+    session[:drive] = drive
+    puts params
   end
 
   def search
+    drive = session[:drive]
+    puts 'hello world'
+    drive.files.each do |file|
+      file.acl.push(
+        {:scope_type => "default",
+          :with_key => true,
+          :role => "writer"
+      })
+      puts file.title
+      puts file.human_url
+    end
+    file = drive.file_by_title("me.txt")
+    puts 'hello world'
     @lectures, @info, @url, @course, @semester = live_data(params)
     # This will return an array of booleans for class days for each lecture
     @classes, @days, @profs, @times = meetingTimesForLectures(@lectures, @info)
