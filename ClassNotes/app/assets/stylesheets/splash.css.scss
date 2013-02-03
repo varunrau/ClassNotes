@@ -32,7 +32,34 @@
   top:4px;
 }
 
-.table{
-
-
+.row:hover {
+	-moz-box-shadow: 0 0 5px 5px #888;
+	-webkit-box-shadow: 0 0 5px 5px#888;
+	box-shadow: 0 0 5px 5px #888;
 }
+
+.table-wrapper {
+	padding: 80px;
+	margin: 10px;
+	-webkit-box-shadow: 10px;
+}
+
+.table {
+	-webkit-border-radius: 8px 8px;
+}
+
+caption {
+	font-size: 24px;
+	color: white;
+	padding-bottom: 40px;
+}
+
+.title-page {
+	font-size: 36px;
+	color: white;
+	position: relative;
+	top: 90px;
+	left: 170px;
+	font-style: italic;
+}
+

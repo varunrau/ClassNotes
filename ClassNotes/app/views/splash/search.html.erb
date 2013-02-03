@@ -1,27 +1,33 @@
 <div class='table-wrapper'>
-  <table class='table table-striped'>
-    <caption>Which class are you interested in?</caption>
-    <thead>
-      <tr>Course Title</tr>
-      <tr>Professor</tr>
-      <tr>Days of the Week</tr>
-      <tr>Course Times</tr>
+	<table class='table table-striped'>
+	   <caption>Which class are you interested in?</caption>
+	  <thead>
+      <th></th>
+		  <th>Course Title</th>
+		  <th>Professsor</th>
+      <th>Days of the Week</th>
+		  <th>Course Times</th>
     </thead>
-    <tbody>
-      <% @courses.each do |course| %>
-        <tr>
-          <td>
-            <%= course.title %>
-          </td>
-          <td>
-            <%= course.professor %>
-          </td>
-          <td>
-            <%= course.time %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+		<tbody>
+		  <% @courses.each do |course| %>
+			<tr class='row'>
+			  <td>
+				<%= course.title %>
+			  </td>
+			  <td>
+				<%= course.professor %>
+			  </td>
+        <td>
+          <%= "" << (course.mon ? "M" : "") << (course.tue ? "Tu" : "") << (course.wed ? "W" : "") << (course.thu ? "Th" : "") << (course.fri ? "F" : "") %>
+
+        </td>
+			  <td>
+				<%= course.time %>
+			  </td>
+			</tr>
+		  <% end %>
+		</tbody>
+
+	</table>
 </div>
 
