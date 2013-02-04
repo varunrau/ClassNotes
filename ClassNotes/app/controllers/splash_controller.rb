@@ -3,7 +3,7 @@ class SplashController < ApplicationController
 
   def index
     # Login in to the master account
-    drive = GoogleDrive.login("berkeleyclassnotes@gmail.com", "calnotes")
+    # drive = GoogleDrive.login("berkeleyclassnotes@gmail.com", "calnotes")
     session[:drive] = drive
     puts params
   end
@@ -11,15 +11,15 @@ class SplashController < ApplicationController
   def search
     drive = session[:drive]
     puts 'hello world'
-    drive.files.each do |file|
-      file.acl.push(
-        {:scope_type => "default",
-          :with_key => true,
-          :role => "writer"
-      })
-      puts file.title
-      puts file.human_url
-    end
+    # drive.files.each do |file|
+    #   file.acl.push(
+    #     {:scope_type => "default",
+    #       :with_key => true,
+    #       :role => "writer"
+    #   })
+    #   puts file.title
+    #   puts file.human_url
+    # end
     file = drive.file_by_title("me.txt")
     puts 'hello world'
     @lectures, @info, @url, @course, @semester = live_data(params)

@@ -6,9 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+
+# THE FOLLOWING CODE POPULATES THE DATABASE WITH ALL THE CLASSES THAT BERKELEY OFFERS
+
 # build search url from search parameters
-
-
   def meetingTimesForLectures(classes, classes_info)
     class_names = []
     class_days = []
@@ -331,47 +333,93 @@ def live_data(params)
   return lectures, info, url, course, params[:semester]
 end
 
-maps = [
-  # {:days => "M", :semester => "SP"},
-  # {:days => "Tu", :semester => "SP"},
-  # {:days => "W", :semester => "SP"},
-  # {:days => "Th", :semester => "SP"},
-  # {:days => "F", :semester => "SP"},
-  # {:days => "MW", :semester => "SP"},
-  # {:days => "WF", :semester => "SP"},
-  # {:days => "MF", :semester => "SP"},
-  # {:days => "TuTh", :semester => "SP"},
-  # {:days => "MWF", :semester => "SP"},
-  {:days => "MTuThF", :semester => "SP"}
-]
 
-maps.each { |map|
-  @lectures, @info, @url, @course, @semester = live_data(map)
-  @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
+def create_classes
+  maps = [
+    # {:days => "M", :semester => "SP"},
+    # {:days => "Tu", :semester => "SP"},
+    # {:days => "W", :semester => "SP"},
+    # {:days => "Th", :semester => "SP"},
+    # {:days => "F", :semester => "SP"},
+    # {:days => "MW", :semester => "SP"}
+    # {:days => "WF", :semester => "SP"},
+    # {:days => "MF", :semester => "SP"},
+    # {:days => "TuTh", :semester => "SP"},
+    # {:days => "MWF", :semester => "SP"},
+    {:days => "MTuThF", :semester => "SP"}
+  ]
+  maps.each { |map|
+    @lectures, @info, @url, @course, @semester = live_data(map)
+    @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
 
-  @classes.length.times do |index|
-    puts '--------------'
-    puts @classes[index]
-    puts '--------------'
-    lecture = Lecture.new
-    lecture.title = @classes[index]
-    days = @days[index] # A boolean array of when the class is
-    prof = @professors[index] # A string for the professor
-    times = @times[index] # A string for when the class is held
-    class_index = 0
-    while (prof[class_index]) do
-      lecture.professor = prof[class_index]
-      lecture.mon = days[class_index][0]
-      lecture.tue = days[class_index][1]
-      lecture.wed = days[class_index][2]
-      lecture.thu = days[class_index][3]
-      lecture.fri = days[class_index][4]
-      lecture.time = times[class_index]
-      lecture.save
-      puts prof[class_index]
-      puts times[class_index]
-      puts days[class_index]
-      class_index += 1
+    @classes.length.times do |index|
+      puts '--------------'
+      puts @classes[index]
+      puts '--------------'
+      lecture = Lecture.new
+      lecture.title = @classes[index]
+      days = @days[index] # A boolean array of when the class is
+      prof = @professors[index] # A string for the professor
+      times = @times[index] # A string for when the class is held
+      class_index = 0
+      while (prof[class_index]) do
+        lecture.professor = prof[class_index]
+        lecture.mon = days[class_index][0]
+        lecture.tue = days[class_index][1]
+        lecture.wed = days[class_index][2]
+        lecture.thu = days[class_index][3]
+        lecture.fri = days[class_index][4]
+        lecture.time = times[class_index]
+        unless Lecture.find_by_title(lecture.title)
+          puts lecture.title
+        end
+        puts prof[class_index]
+        puts times[class_index]
+        puts days[class_index]
+        class_index += 1
+      end
+    end
+  }
+end
+
+
+def create_docs
+  lectures = Lecture.all
+  lectures.each do |lecture|
+
+    start_date = Date.today
+    end_date = Date.new(2013, 5, 10)
+
+    my_days = Array.new
+    if lecture.mon
+      my_days[1] = 1
+    end
+    if lecture.tue
+      my_days[2] = 2
+    end
+    if lecture.wed
+      my_days[3] = 3
+    end
+    if lecture.thu
+      my_days[4] = 4
+    end
+    if lecture.fri
+      my_days[5] = 5
+    end
+
+    result = (start_date..end_date).to_a.select do |k|
+      if my_days.include?(k.wday)
+        doc = Document.new
+        doc.class_id = lecture.id
+        doc.title = lecture.title + lecture.professor + lecture.time + k.to_s
+        puts k
+        puts doc.title
+        doc.date = k
+        doc.save
+      end
     end
   end
-}
+end
+
+# create_classes
+create_docs
