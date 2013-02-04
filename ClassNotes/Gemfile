@@ -13,12 +13,15 @@ gem "google_drive", "~> 0.3.3"
 
 gem 'google-api-client'
 
-gem 'sqlite3'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'bootstrap-sass', '2.1'
 gem 'less-rails'
 gem 'therubyracer'
+
+group :development do
+    gem 'sqlite3'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
