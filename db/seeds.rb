@@ -341,11 +341,11 @@ def create_classes
     {:days => "W", :semester => "SP"},
     {:days => "Th", :semester => "SP"},
     {:days => "F", :semester => "SP"},
-    {:days => "MW", :semester => "SP"}
+    {:days => "MW", :semester => "SP"},
     {:days => "WF", :semester => "SP"},
     {:days => "MF", :semester => "SP"},
     {:days => "TuTh", :semester => "SP"},
-    {:days => "MWF", :semester => "SP"}
+    {:days => "MWF", :semester => "SP"},
     {:days => "MTuThF", :semester => "SP"}
   ]
   maps.each { |map|
