@@ -353,9 +353,6 @@ def create_classes
     @classes, @days, @professors, @times = meetingTimesForLectures(@lectures, @info)
 
     @classes.length.times do |index|
-      puts '--------------'
-      puts @classes[index]
-      puts '--------------'
       lecture = Lecture.new
       lecture.title = @classes[index]
       days = @days[index] # A boolean array of when the class is
@@ -376,6 +373,7 @@ def create_classes
         puts prof[class_index]
         puts times[class_index]
         puts days[class_index]
+        lecture.save
         class_index += 1
       end
     end
@@ -424,13 +422,11 @@ end
 def remove_links
   docs = Document.all
   docs.each do |doc|
-    puts doc.link
     doc.link = nil
     doc.save
-    puts 'now nil'
   end
 end
 
+create_classes
+create_docs
 remove_links
-# create_classes
-# create_docs
