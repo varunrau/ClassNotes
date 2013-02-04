@@ -1,33 +1,38 @@
 <div class='table-wrapper'>
-	<table class='table table-striped'>
-	   <caption>Which class are you interested in?</caption>
-	  <thead>
+  <table class='table table-striped'>
+    <caption>Which class are you interested in?</caption>
+    <thead>
       <th></th>
-		  <th>Course Title</th>
-		  <th>Professsor</th>
+      <th>Course Title</th>
+      <th>Professsor</th>
       <th>Days of the Week</th>
-		  <th>Course Times</th>
+      <th>Course Times</th>
     </thead>
-		<tbody>
-		  <% @courses.each do |course| %>
-			<tr class='row'>
-			  <td>
-				<%= course.title %>
-			  </td>
-			  <td>
-				<%= course.professor %>
-			  </td>
-        <td>
-          <%= "" << (course.mon ? "M" : "") << (course.tue ? "Tu" : "") << (course.wed ? "W" : "") << (course.thu ? "Th" : "") << (course.fri ? "F" : "") %>
+    <tbody>
+      <% @courses.each do |course| %>
+        <%# <% link_to('google.com', html_options = {}) do %1> %>
+          <tr class='row'>
+            <td>
+              <%= course.title %>
+            </td>
+            <td>
+              <%= course.professor %>
+            </td>
+            <td>
+              <%= "" << (course.mon ? "M" : "") << (course.tue ? "Tu" : "") << (course.wed ? "W" : "") << (course.thu ? "Th" : "") << (course.fri ? "F" : "") %>
 
-        </td>
-			  <td>
-				<%= course.time %>
-			  </td>
-			</tr>
-		  <% end %>
-		</tbody>
+            </td>
+            <td>
+              <%= course.time %>
+            </td>
+            <td>
+              <%= button_to "See class notes", { :action => "documents", :id => course.id }, :class => 'btn' %>
+            </td>
+          </tr>
+        <% end %>
+      <%# <% end %1> %>
+    </tbody>
 
-	</table>
+  </table>
 </div>
 

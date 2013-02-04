@@ -1,0 +1,23 @@
+<div class='table-wrapper'>
+  <table class='table table-striped'>
+    <caption>Which lecture are you interested in?</caption>
+    <thead>
+      <th></th>
+      <th>Lecture Date</th>
+    </thead>
+    <tbody>
+      <% @documents.each do |document| %>
+          <tr class='row'>
+            <td>
+              <%= document.date %>
+            </td>
+            <td>
+              <%= button_to "Open Document", { :action => "open_document", :id => document.id }, :class => 'btn' %>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+
+  </table>
+</div>
+

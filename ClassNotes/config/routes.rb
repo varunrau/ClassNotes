@@ -1,5 +1,6 @@
 ClassNotes::Application.routes.draw do
   post "search" => "splash#search", :as => "search"
-  get "document" => "splash#document", :as => "document"
+  post "documents" => "splash#documents", :as => "documents"
+  post "open_document" => "splash#open_document", :as => "open_document"
   root :to => 'splash#index'
 end

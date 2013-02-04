@@ -3,7 +3,7 @@ class SplashController < ApplicationController
 
   def index
     # Login in to the master account
-    # drive = GoogleDrive.login("berkeleyclassnotes@gmail.com", "calnotes")
+    drive = GoogleDrive.login("berkeleyclassnotes@gmail.com", "calnotes")
     session[:drive] = drive
     puts params
   end
@@ -11,17 +11,7 @@ class SplashController < ApplicationController
   def search
     drive = session[:drive]
     puts 'hello world'
-    # drive.files.each do |file|
-    #   file.acl.push(
-    #     {:scope_type => "default",
-    #       :with_key => true,
-    #       :role => "writer"
-    #   })
-    #   puts file.title
-    #   puts file.human_url
-    # end
     file = drive.file_by_title("me.txt")
-    puts 'hello world'
     @lectures, @info, @url, @course, @semester = live_data(params)
     # This will return an array of booleans for class days for each lecture
     @classes, @days, @profs, @times = meetingTimesForLectures(@lectures, @info)
@@ -34,8 +24,31 @@ class SplashController < ApplicationController
         @courses << a_lecture
       end
     end
-    # if @courses.length == 1
-    #   redirect_to document_path
-    # end
+  end
+
+  def documents
+    puts params[:id]
+    @documents = Document.find_all_by_class_id(params[:id])
+  end
+
+  def open_document
+    doc_id = params[:id]
+    doc = Document.find(doc_id)
+    drive = session[:drive]
+    unless doc.link
+      doc.link = doc.title + doc.date
+      doc.save
+      template_doc = Rails.root.to_s + "/app/assets/documents/document.doc"
+      drive.upload_from_file(template_doc, doc.link, :convert => true)
+      google_doc_file = drive.file_by_title(doc.link)
+      google_doc_file.acl.push(
+        {:scope_type => "default",
+          :with_key => true,
+          :role => "writer"
+      })
+    end
+    google_doc_url = drive.file_by_title(doc.link).human_url
+    puts google_doc_url
+    redirect_to google_doc_url
   end
 end
