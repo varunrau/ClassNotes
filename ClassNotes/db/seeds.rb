@@ -421,5 +421,16 @@ def create_docs
   end
 end
 
+def remove_links
+  docs = Document.all
+  docs.each do |doc|
+    puts doc.link
+    doc.link = nil
+    doc.save
+    puts 'now nil'
+  end
+end
+
+remove_links
 # create_classes
-create_docs
+# create_docs

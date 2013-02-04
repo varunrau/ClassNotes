@@ -1,5 +1,7 @@
 class SplashController < ApplicationController
   helper_method :gen_day_string
+  layout nil
+  layout 'application', :except => :about
 
   def index
     # Login in to the master account
@@ -35,20 +37,27 @@ class SplashController < ApplicationController
     doc_id = params[:id]
     doc = Document.find(doc_id)
     drive = session[:drive]
+    lecture = Lecture.find(doc.class_id)
     unless doc.link
-      doc.link = doc.title + doc.date
-      doc.save
       template_doc = Rails.root.to_s + "/app/assets/documents/document.doc"
-      drive.upload_from_file(template_doc, doc.link, :convert => true)
-      google_doc_file = drive.file_by_title(doc.link)
+      drive.upload_from_file(template_doc, lecture.title + " " + doc.date, :convert => true)
+      google_doc_file = drive.file_by_title(lecture.title + " " + doc.date)
       google_doc_file.acl.push(
         {:scope_type => "default",
           :with_key => true,
           :role => "writer"
       })
+      doc.link = google_doc_file.human_url
+      doc.save
     end
-    google_doc_url = drive.file_by_title(doc.link).human_url
-    puts google_doc_url
-    redirect_to google_doc_url
+    redirect_to doc.link
   end
+
+  def all_classes
+    @courses = Lecture.all
+  end
+
+  def about
+  end
+
 end
