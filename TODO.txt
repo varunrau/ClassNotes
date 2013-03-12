@@ -12,4 +12,4 @@ Version #2: 2/4/13 4:50pm
 	...
 
 Notice how the lecture has a subtitle, which is the name of that lecture, which would be a nice feature. We don't need to put that subtitle in yet, but later on we should implement it. The date and lecture should be listed in that style though for sure.
-#5.) Change "What would you like to learn?", which is the wrong thing kinda, to something more like "Choose a class :3"
+#5.) Change "What would you like to learn?", which is the wrong thing kinda, to something more like "Choose a class :3" DONE

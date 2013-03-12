@@ -1,7 +1,3 @@
-// Place all the styles related to the splash controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 
 .search {
   padding-top: 12%;
@@ -11,19 +7,19 @@
 }
 
 .input-medium{
-	width: 200px;
+  width: 200px;
 }
 
 .search-btn{
-	margin-left:20px;
+  margin-left:20px;
 }
 
 .cal-logo{
-	height: 390px;
-	width: 532px;
-	position:relative;
-  	top:35px;
-  	left:20px;
+  height: 390px;
+  width: 532px;
+  position:relative;
+  top:35px;
+  left:20px;
 }
 
 .semester-box {
@@ -33,33 +29,72 @@
 }
 
 .row:hover {
-	-moz-box-shadow: 0 0 5px 5px #888;
-	-webkit-box-shadow: 0 0 5px 5px#888;
-	box-shadow: 0 0 5px 5px #888;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px#888;
+  box-shadow: 0 0 5px 5px #888;
 }
 
 .table-wrapper {
-	padding: 80px;
-	margin: 10px;
-	-webkit-box-shadow: 10px;
+  padding: 80px;
+  margin: 10px;
+  -webkit-box-shadow: 10px;
 }
 
 .table {
-	-webkit-border-radius: 8px 8px;
+  -webkit-border-radius: 8px 8px;
 }
 
 caption {
-	font-size: 24px;
-	color: white;
-	padding-bottom: 40px;
+  font-size: 24px;
+  color: white;
+  padding-bottom: 40px;
 }
 
 .title-page {
-	font-size: 36px;
-	color: white;
-	position: relative;
-	top: 90px;
-	left: 170px;
-	font-style: italic;
+  font-size: 36px;
+  color: white;
+  position: relative;
+  top: 90px;
+  left: 170px;
+  font-style: italic;
 }
 
+.card {
+  border: 1px solid #efefef;
+  margin: 0 auto;
+  width: 300px;
+  height: 400px;
+  background: #fff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  -webkit-border-radius: 3px;
+}
+
+.card-wrapper {
+  padding-top: 70px;
+  padding-right: 10px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.name {
+  font-size: 19pt;
+  text-align: center;
+}
+
+.detail {
+  text-align: center;
+  font-style: italic;
+  padding-top: 25px;
+  padding-bottom: 8px;
+}
+
+.cards > div {
+  display: inline-block;
+}
+
+.cards {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
